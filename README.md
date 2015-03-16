@@ -1,21 +1,15 @@
 # jvorbiscomment
 A java library for reading and writing Ogg Vorbis comments (tags)
 
-# Features
+## Features
 
-    Simple - Two static methods: VorbisIO.readComments and VorbisIO.writeComments. 
+- **Simple** - Two static methods: VorbisIO.readComments and VorbisIO.writeComments. 
+- **In-place Updates** - Comment changes are written to the original file, not a copy of the file. This means updates will be faster and the file attirbutes, such as permissions and creation time, will remain intact. 
+- **Buffered Updates** - A buffering scheme is employed to avoid re-writting the entire file when the comments are changed by only a small amount. 
+- **Unicode** - Full support for Unicode text. 
+- **Tested** - Many unit tests have been written in hopes of preventing file corruption. I have executed this library on my 3,500 file Ogg collection.
 
-    In-place Updates - Comment changes are written to the original file, not a copy of the file. This means updates will be faster and the file attirbutes, such as permissions and creation time, will remain intact. 
-
-    Buffered Updates - A buffering scheme is employed to avoid re-writting the entire file when the comments are changed by only a small amount. 
-
-    Unicode - Full support for Unicode text. 
-
-    Tested - Many unit tests have been written in hopes of preventing file corruption. I have executed this library on my 3500 file Ogg collection. 
-
-    Maintained - I am committed to maintaining this library. Reported issues will be addressed in a timely manner. Since this project has a very small and clearly defined scope, inactivity should be considered a good thing (many happy customers). 
-
-# Changes
+## Releases
 v1.0.3
 
     Fix exception reading vorbis comments written by the foobar2000 program.
