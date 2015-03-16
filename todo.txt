@@ -1,0 +1,7 @@
+Basic GUI
+- field name should default to first unused field (this makes sense because fields are sorted by frequency of use)
+- Could save field names that the user has added as a convenience feature
+- remove </html> in about text
+- title in add/edit field dialog
+- show parse warnings
+- show audio properties such as play time and bitrate

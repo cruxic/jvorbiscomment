@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Unit Tests" verbose="1">
+
+  <test name="General Tests">
+
+    <!--groups>
+        <run>
+          <include name="cur"/>
+        </run>
+      </groups-->  
+
+   <classes>
+    <class name="adamb.vorbis.VorbisIO$Tester"/>
+   </classes>
+ </test>
+</suite>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="JVorbisComment" default="source_zip" basedir=".">
+	<description>Builds the JVorbisComment "Source" release zip</description>
+	
+	<!-- define ${VERSION} -->
+	<property file="Library/version.properties"/> 
+	
+	<property name="srczip" value="jvorbiscomment-${VERSION}_src.zip"/>
+		
+	<target name="source_zip" depends="clean" description="build executable jar file">
+		<zip destfile="${srczip}" basedir=".">
+		</zip>
+	</target>
+	
+	<target name="clean" description="clean all files built by this script">
+		<ant dir="BasicGUI" target="clean"/>
+		<ant dir="Library" target="clean"/>
+		<delete file="${srczip}"/>
+	</target>
+
+</project>

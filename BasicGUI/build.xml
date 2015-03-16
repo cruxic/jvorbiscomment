@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="JVorbisComment" default="default" basedir=".">
+	<description>Builds the JVorbisComment Example GUI program.</description>
+	
+	<!-- define ${VERSION} -->
+	<property file="../Library/version.properties"/> 
+	
+	<property name="reljar" value="JVorbisCommentGUI.jar"/>
+	
+	<target name="library_jar">
+		<!-- populate Library/build/classes directory to be bundled into the final -->
+		<ant dir="../Library" target="compile"/>
+	</target>
+
+	<target name="compile" description="compile java code" depends="library_jar">
+
+		<mkdir dir="build/classes"/>
+
+		<javac srcdir="src"
+			destdir="build/classes"
+			classpath="../Library/build/classes;dependencies/swing-layout-1.0.3.jar"
+			source="1.5"
+			target="1.5"/>
+			
+		<!-- include about.txt.
+			While copying, replace @VERSION@ with the real version string.
+		 -->
+		<filter token="VERSION" value="${VERSION}"/>
+		<copy file="src/about.txt" todir="build/classes" filtering="true"/>
+	</target>
+	
+	<target name="jar" depends="compile" description="build executable jar file">
+
+		<jar destfile="${reljar}">
+			<fileset dir="build/classes"/>
+
+			<!-- bundle classes from the library itself -->
+			<fileset dir="../Library/build/classes"/>
+
+			<!-- bundle all dependencies -->
+			<zipgroupfileset dir="dependencies" includes="*.jar"/>
+
+			<manifest>
+				<attribute name="Main-Class" value="adamb.JVorbisCommentGUI"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="clean" description="clean all files built by this script">
+		<delete file="${reljar}"/>
+		<delete dir="build"/>
+	</target>
+
+
+	<target name="default" depends="jar" description="build executable jar"/>
+
+</project>

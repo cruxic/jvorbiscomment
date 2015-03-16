@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="JVorbisComment" default="default" basedir=".">
+	<description>Builds the JVorbisComment library.</description>
+	
+	<!-- define ${VERSION} -->
+	<property file="version.properties"/> 
+	
+	<property name="reljar" value="jvorbiscomment-${VERSION}.jar"/>
+	<property name="relzip" value="jvorbiscomment-${VERSION}.zip"/>
+
+	<target name="compile" description="compile java code">
+
+		<mkdir dir="build/classes"/>
+
+		<javac srcdir="src"
+			destdir="build/classes"
+			classpath="dependencies/testng-5.3-jdk15.jar"
+			source="1.5"
+			target="1.5"/>
+			
+		<!-- include copyright.txt -->
+		<copy file="src/copyright.txt" todir="build/classes"/>
+
+
+	</target>
+	
+	<target name="jar" depends="compile" description="build releasable jar file">
+
+		<jar destfile="${reljar}" basedir="build/classes">
+			<manifest>
+				<attribute name="Implementation-Vendor" value="Cruxic"/>
+				<attribute name="Implementation-Title" value="JVorbisComment"/>
+				<attribute name="Implementation-Version" value="${VERSION}"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="clean" description="clean all files built by this script">
+		<delete file="${reljar}"/>
+		<delete file="${relzip}"/>
+		<delete dir="build"/>
+		<delete dir="javadocs"/>
+	</target>
+
+	<target name="docs" depends="jar" description="build the javadocs">
+		<mkdir dir="javadocs"/>
+		<javadoc packagenames="adamb.vorbis.*"
+			sourcepath="src"
+			defaultexcludes="yes"
+			destdir="javadocs"
+			author="false"
+			version="false"
+			use="false"
+			windowtitle="JVorbisComment ${VERSION}">
+			<classpath>
+				<path path="${reljar}"/>
+				<path path="dependencies/testng-5.3-jdk15.jar"/>
+			</classpath>
+		</javadoc>
+	</target>
+	
+	<target name="pkg" description="Release zip package" depends="jar,docs">
+		<zip destfile="${relzip}">
+			<zipfileset dir="javadocs" prefix="javadocs"/>
+			<fileset file="README.html"/>
+			<fileset file="${reljar}"/>
+		</zip>
+	</target>
+
+	<target name="default" depends="jar,docs" description="build jar and javadocs"/>
+
+</project>
